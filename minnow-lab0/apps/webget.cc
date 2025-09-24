@@ -30,8 +30,6 @@ void get_URL( const string& host, const string& path )
     if (buffer.empty()) break;
     cout << buffer;
   }
-  // debug( "Function called: get_URL( \"{}\", \"{}\" )", host, path );
-  // debug( "get_URL() function not yet implemented" );
 }
 } // namespace
 
