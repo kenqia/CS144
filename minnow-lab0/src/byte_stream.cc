@@ -3,13 +3,28 @@
 
 using namespace std;
 
-ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ) {}
+ByteStream::ByteStream( uint64_t capacity ) : buffer(2 * capacity), 
+                                              writer_pos(0), 
+                                              reader_pos(0), 
+                                              capacity_( capacity ), 
+                                              error_(false){}
 
 // Push data to stream, but only as much as available capacity allows.
-void Writer::push( string data )
+void Writer::push(const string& data)
 {
-  // Your code here (and in each method below)
-  debug( "Writer::push({}) not yet implemented", data );
+  uint64_t n = std::min<uint64_t>(data.size(), available_capacity());
+  uint64_t start = writer_pos % buffer.capacity();
+  uint64_t left = buffer.capacity() - start;
+
+  if(n <= left){
+    std::copy(data.begin(), data.begin() + n, buffer.begin() + start);
+  }else{
+    std::copy(data.begin(), data.begin() + left, buffer.begin() + writer_pos);
+    std::copy(data.begin() + left, data.begin() + n, buffer.begin());
+  }
+  
+  writer_pos += n;
+  // debug( "Writer::push({}) not yet implemented", data );
 }
 
 // Signal that the stream has reached its ending. Nothing more will be written.

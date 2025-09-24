@@ -118,7 +118,7 @@ public:
 //! A wrapper around [packet sockets](\ref man7:packet)
 class PacketSocket : public DatagramSocket
 {
-public:
+public: 
   PacketSocket( const int type, const int protocol ) : DatagramSocket( AF_PACKET, type, protocol ) {}
 
   void set_promiscuous();
