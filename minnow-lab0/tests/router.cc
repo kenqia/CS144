@@ -39,7 +39,6 @@ EthernetAddress random_router_ethernet_address()
 
 uint32_t ip( const string& str )
 {
-  return Address { str }.ipv4_numeric();
 }
 
 class NetworkSegment : public NetworkInterface::OutputPort
